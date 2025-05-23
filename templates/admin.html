@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Manage Claims</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel - Manage Claims</h1>
+
+        <ul class="flash-messages">
+            {% for message in get_flashed_messages() %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if not logged_in %}
+            <p>You are not logged in. Please <a href="{{ url_for('admin_login') }}">login</a> to access this panel.</p>
+        {% else %}
+            <div class="admin-actions">
+                <a href="{{ url_for('admin_logout') }}" class="logout-btn">Log Out</a>
+            </div>
+            {% if claims %}
+                {% for claim in claims %}
+                <div class="claim-item">
+                    <strong>{{ claim.first_name }}</strong>
+                    <span>Claim Time: {{ datetime.fromisoformat(claim.timestamp).strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    <div class="claim-actions">
+                        <button class="edit-btn" onclick="openEditForm('{{ claim.id }}', '{{ claim.first_name }}', '{{ claim.timestamp }}')">Edit</button>
+                        <form action="{{ url_for('admin_panel') }}" method="post" style="display:inline;">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="claim_id" value="{{ claim.id }}">
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this claim?');">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No claims have been recorded yet.</p>
+            {% endif %}
+        {% endif %}
+
+        <div class="back-link">
+            <a href="{{ url_for('index') }}">Back to Photo Stream</a>
+        </div>
+    </div>
+
+    <div id="editFormPopup" class="edit-form-popup">
+        <div class="edit-form-content">
+            <span class="close-btn" onclick="closeEditForm()">&times;</span>
+            <h2>Edit Claim</h2>
+            <form id="editClaimForm" action="{{ url_for('admin_panel') }}" method="post">
+                <input type="hidden" name="action" value="edit">
+                <input type="hidden" name="claim_id" id="edit_claim_id">
+
+                <label for="new_name">First Name:</label>
+                <input type="text" id="new_name" name="new_name" required>
+
+                <label for="new_timestamp">Claim Timestamp:</label>
+                <input type="datetime-local" id="new_timestamp_local" step="0.001">
+                <input type="hidden" name="new_timestamp" id="new_timestamp_hidden">
+
+                <button type="submit" onclick="prepareEditSubmit()">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const datetime = { fromisoformat: (s) => new Date(s) };
+
+        function openEditForm(claimId, currentName, currentTimestampIso) {
+            document.getElementById('edit_claim_id').value = claimId;
+            document.getElementById('new_name').value = currentName;
+
+            const date = new Date(currentTimestampIso);
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            const milliseconds = date.getMilliseconds().toString().padStart(3, '0').substring(0,3);
+
+            const localDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+            document.getElementById('new_timestamp_local').value = localDateTime;
+
+            document.getElementById('editFormPopup').style.display = 'flex';
+        }
+
+        function closeEditForm() {
+            document.getElementById('editFormPopup').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const popup = document.getElementById('editFormPopup');
+            if (event.target == popup) {
+                closeEditForm();
+            }
+        }
+
+        function prepareEditSubmit() {
+            const localDateTimeValue = document.getElementById('new_timestamp_local').value;
+            if (localDateTimeValue) {
+                const dateObj = new Date(localDateTimeValue);
+                document.getElementById('new_timestamp_hidden').value = dateObj.toISOString();
+            } else {
+                document.getElementById('new_timestamp_hidden').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Your Photo!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Claim Your Photo!</h1>
+        <p>Enter your first name to help us identify your photo in the stream.</p>
+        <p>The time you submit this form will be used to help match your photo.</p>
+
+        <ul class="flash-messages">
+            {% for message in get_flashed_messages() %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+
+        <form action="{{ url_for('claim_photo_by_id', photo_id=photo_id) }}" method="post">
+            <label for="first_name">Your First Name:</label>
+            <input type="text" id="first_name" name="first_name" required autofocus>
+
+            <input type="hidden" id="claimed_time" name="claimed_time">
+
+            <button type="submit">Claim Photo</button>
+        </form>
+
+        <p><a href="{{ url_for('index') }}">Back to Photo Stream</a></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            document.getElementById('claimed_time').value = now.toISOString();
+        });
+    </script>
+</body>
+</html>

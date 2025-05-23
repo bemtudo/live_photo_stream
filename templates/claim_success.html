@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Submitted!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Claim Submitted!</h1>
+        <p>Thank you, {% if first_name %}{{ first_name }}{% else %}your claim{% endif %} has been recorded.</p>
+        <p>You can now go back to the photo stream to find your picture.</p>
+        <a href="{{ url_for('index') }}">Go to Photo Stream</a>
+    </div>
+</body>
+</html>

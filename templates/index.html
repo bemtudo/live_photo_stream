@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Photo Stream</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>BEN DERICO</h1> {# Main site title in header #}
+        </div>
+        <nav class="header-right">
+            <a href="/about">About</a> {# Placeholder for About page #}
+            <a href="/archive">Archive</a> {# Placeholder for Archive page #}
+        </nav>
+    </header>
+
+    <div class="container">
+        {# Main content area, no longer a floating box #}
+
+        <h1>Photo Stream</h1> {# Changed to Photo Stream for clarity after adding site title in header #}
+
+        <ul class="flash-messages">
+            {% for message in get_flashed_messages() %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+
+        {# The upload-section is REMOVED from here #}
+
+        <div class="photo-grid">
+            {% for photo in photos %}
+            <div class="photo-item">
+                <img src="{{ url_for('uploaded_file', filename=photo.filename) }}" alt="Uploaded Photo">
+                <div class="photo-info">
+                    {% if photo.claimed_name %}
+                        <p class="claimed-name">{{ photo.claimed_name }}</p>
+                    {% else %}
+                        <p>Not yet claimed.</p>
+                    {% endif %}
+                    <p class="photo-timestamp">Uploaded: {{ photo.display_time }}</p>
+                    <div class="photo-actions">
+                        <a href="{{ url_for('claim_photo_by_id', photo_id=photo.id) }}" class="button claim-button">Claim Photo!</a>
+                        <a href="{{ url_for('uploaded_file', filename=photo.filename) }}" download="{{ photo.filename }}" class="button download-button">Download</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div> {# Close .container div #}
+
+    <footer>
+        <div class="footer-left">
+            <a href="{{ url_for('upload_page') }}">Upload Photo</a> {# NEW: Link to protected upload page #}
+            <a href="{{ url_for('admin_login') }}">Admin Panel</a>
+        </div>
+        <div class="footer-right">
+            <p class="copyright">&copy; Ben Derico {{ now().year }}</p>
+            <a href="https://www.instagram.com/your_instagram_handle" target="_blank" class="instagram-link">Instagram</a> {# IMPORTANT: Remember to change your_instagram_handle! #}
+        </div>
+    </footer>
+</body>
+</html>

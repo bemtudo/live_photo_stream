@@ -1,0 +1,641 @@
+/* Google Fonts Import - Exclusively Montserrat, various weights */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Variables for easy color changes */
+:root {
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-yellow: #FFD700; /* Vibrant Yellow */
+    --color-dark-gray: #222222; /* For text on yellow background */
+    --color-light-gray: #EEEEEE; /* For subtle elements on black */
+    --color-med-gray: #666666; /* For less prominent text */
+}
+
+/* General Body Styling - Yellow Background, No Padding */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-yellow); /* The main yellow background */
+    color: var(--color-dark-gray); /* Dark text by default on yellow */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+}
+
+/* Header Styling */
+header {
+    background-color: var(--color-yellow); /* Yellow header background */
+    color: var(--color-dark-gray); /* Dark text in header */
+    padding: 25px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box; /* Corrected typo: should be border-box */
+    border-bottom: 2px solid var(--color-black); /* Strong separator line */
+}
+
+header .header-left h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-dark-gray); /* Dark gray title */
+    margin: 0;
+    text-align: left;
+}
+
+header .header-right {
+    display: flex;
+    gap: 30px;
+}
+
+header .header-right a {
+    color: var(--color-dark-gray);
+    text-decoration: none; /* No underline */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+header .header-right a:hover {
+    color: var(--color-black);
+    transform: translateY(-2px);
+}
+
+/* Container Styling - No Visual Box */
+.container {
+    flex-grow: 1;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px 40px;
+    box-sizing: border-box;
+    /* No background, border, or shadow for the main container */
+}
+
+h1 { /* This is for the "Photo Stream" title inside container */
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-dark-gray);
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 5.5em;
+    line-height: 1;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+h2 { /* This is for the "Upload a New Photo" title */
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-dark-gray);
+    text-align: center;
+    margin-bottom: 45px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 3.5em;
+    line-height: 1.1;
+}
+
+
+/* Flash Messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: -15px 0 40px 0;
+    text-align: center;
+}
+.flash-messages li {
+    background-color: var(--color-dark-gray);
+    color: var(--color-yellow);
+    border: none;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    animation: fadeIn 0.5s ease-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+.flash-messages li.error {
+    background-color: #CC0000;
+    color: var(--color-white);
+}
+
+/* Forms (Upload, Claim, Login, Edit) */
+form {
+    margin-top: 40px;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: var(--color-dark-gray);
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="datetime-local"],
+input[type="file"] {
+    width: calc(100% - 32px);
+    padding: 16px;
+    margin-bottom: 30px;
+    border: 3px solid var(--color-dark-gray);
+    border-radius: 15px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="datetime-local"]:focus {
+    border-color: var(--color-black);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.15);
+}
+input[type="file"] {
+    padding: 12px;
+    border: 3px dashed var(--color-dark-gray);
+    background-color: var(--color-white);
+}
+
+.button, button {
+    background-color: var(--color-dark-gray);
+    color: var(--color-yellow);
+    padding: 18px 40px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    text-decoration: none;
+}
+.button:hover, button:hover {
+    background-color: var(--color-black);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+.button:active, button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Specific Sections */
+.upload-section {
+    background-color: var(--color-white);
+    padding: 50px;
+    border-radius: 20px;
+    margin-bottom: 80px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: none;
+}
+.upload-section button {
+    background-color: var(--color-dark-gray);
+    color: var(--color-yellow);
+}
+.upload-section button:hover {
+    background-color: var(--color-black);
+}
+
+/* Photo Grid - Prominent Images */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 60px;
+    padding: 20px 0;
+}
+.photo-item {
+    background-color: var(--color-dark-gray);
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.photo-item:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.photo-item img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 2px solid var(--color-black);
+}
+.photo-info {
+    padding: 30px;
+    text-align: center;
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+}
+.photo-info p {
+    margin: 2px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 0.8em;
+    color: var(--color-light-gray);
+    letter-spacing: 0.5px;
+}
+.photo-info .claimed-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--color-yellow);
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 1.8em;
+}
+.photo-info .photo-timestamp {
+    font-size: 0.7em;
+    color: var(--color-med-gray);
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+.photo-info .photo-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.photo-info .photo-actions .button {
+    flex: 1 1 auto;
+    min-width: 160px;
+    padding: 14px 25px;
+    font-size: 1.1em;
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+    border-radius: 10px;
+    box-shadow: none;
+    text-decoration: none;
+}
+.photo-info .photo-actions .button:hover {
+    background-color: #E0B800;
+    transform: translateY(-1px);
+}
+
+/* Specific Claim Button Styling */
+.photo-info .claim-button {
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+}
+.photo-info .claim-button:hover {
+    background-color: #E0B800;
+}
+/* Specific Download Button Styling */
+.photo-info .download-button {
+    background-color: var(--color-light-gray);
+    color: var(--color-dark-gray);
+}
+.photo-info .download-button:hover {
+    background-color: #DDDDDD;
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--color-yellow);
+    color: var(--color-dark-gray);
+    padding: 20px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 2px solid var(--color-black);
+}
+
+footer a {
+    color: var(--color-dark-gray);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1em;
+}
+footer a:hover {
+    color: var(--color-black);
+    transform: translateY(-2px);
+}
+
+footer .footer-left, footer .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+footer .footer-right p.copyright {
+    margin: 0;
+    color: var(--color-dark-gray);
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+
+/* Admin Specific Styling */
+.admin-actions {
+    text-align: right;
+    margin-bottom: 30px;
+}
+.logout-btn {
+    background-color: var(--color-dark-gray);
+    color: var(--color-yellow);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.logout-btn:hover {
+    background-color: var(--color-black);
+    transform: translateY(-2px);
+}
+
+.claim-item {
+    background-color: var(--color-white);
+    border: none;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.claim-item strong {
+    flex: 1 1 200px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
+    color: var(--color-dark-gray);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.claim-item span {
+    flex: 1 1 280px;
+    color: var(--color-med-gray);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95em;
+    font-weight: 400;
+}
+.claim-actions {
+    flex: 1 1 180px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.claim-actions button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: none;
+}
+.claim-actions .edit-btn {
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+}
+.claim-actions .edit-btn:hover {
+    background-color: #E0B800;
+}
+.claim-actions .delete-btn {
+    background-color: var(--color-dark-gray);
+    color: var(--color-yellow);
+}
+.claim-actions .delete-btn:hover {
+    background-color: var(--color-black);
+}
+
+/* Edit Form Popup (Modal) */
+.edit-form-popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.edit-form-content {
+    background-color: var(--color-white);
+    padding: 50px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+    box-sizing: border-box;
+    color: var(--color-dark-gray);
+}
+.edit-form-content .close-btn {
+    color: var(--color-med-gray);
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 40px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.edit-form-content .close-btn:hover {
+    color: var(--color-dark-gray);
+}
+.edit-form-content button {
+    margin-top: 30px;
+    width: auto;
+    padding: 16px 35px;
+    font-size: 1.2em;
+    background-color: var(--color-yellow);
+    color: var(--color-black);
+}
+.edit-form-content button:hover {
+    background-color: #E0B800;
+}
+.edit-form-content input[type="text"],
+.edit-form-content input[type="email"],
+.edit-form-content input[type="datetime-local"] {
+    background-color: var(--color-light-bg);
+    border-color: var(--color-dark-gray);
+    color: var(--color-black);
+}
+.edit-form-content label {
+    color: var(--color-dark-gray);
+}
+
+/* Claim Photo Preview Image */
+.claim-photo-preview {
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 25px auto;
+    display: block;
+    border: 3px solid var(--color-dark-gray);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .container {
+        padding: 50px 20px;
+    }
+    h1 {
+        font-size: 3.5em;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 30px;
+    }
+    .photo-item img {
+        height: 380px;
+    }
+    header {
+        padding: 20px 30px;
+    }
+    header .header-left h1 {
+        font-size: 2.2em;
+    }
+    header .header-right {
+        gap: 20px;
+    }
+    header .header-right a {
+        font-size: 0.95em;
+    }
+    footer {
+        padding: 15px 30px;
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    .container {
+        padding: 40px 15px;
+    }
+    h1 {
+        font-size: 2.8em;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    .upload-section, .photo-info, .claim-item, .edit-form-content {
+        padding: 25px;
+    }
+    .photo-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .photo-item img {
+        height: 300px;
+    }
+    .photo-info .claimed-name {
+        font-size: 1.6em;
+    }
+    .photo-info .photo-actions .button {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 0.95em;
+    }
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    header .header-left h1 {
+        text-align: center;
+    }
+    header .header-right {
+        justify-content: center;
+        width: 100%;
+    }
+    footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    footer .footer-left, footer .footer-right {
+        flex-direction: column;
+        gap: 5px;
+    }
+    footer .footer-left a, footer .footer-right a, footer .footer-right p {
+        margin: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 2.2em;
+        letter-spacing: 1px;
+    }
+    h2 {
+        font-size: 1.6em;
+        letter-spacing: 0.8px;
+    }
+    .upload-section button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .photo-item img {
+        height: 250px;
+    }
+    .photo-info .claimed-name {
+        font-size: 1.4em;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
