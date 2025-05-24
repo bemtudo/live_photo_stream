@@ -401,4 +401,4 @@ def admin_panel():
 if __name__ == '__main__':
     # For development, debug=True provides automatic reloading and detailed errors.
     # For production, set debug=False and use a production WSGI server.
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=false, host='0.0.0.0')
